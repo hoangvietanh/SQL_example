@@ -15,16 +15,16 @@ SELECT
 	commune.commune_code,
 	district.district_code,
 	province.province_code,
-	province.NAME 
+	province.NAME
 FROM
 	plot
 	JOIN commune ON commune.commune_code = plot.commune_code
 	JOIN district ON district.district_code = commune.district_code
-	JOIN province ON province.province_code = district.province_code INTO Plot_complete 
+	JOIN province ON province.province_code = district.province_code 
 WHERE
-	forest_type_code >= 71 
-	) INTO forested_area 
+	forest_type_code >= 10
+	) AS forested_area
 GROUP BY
-	Province 
+	Province
 ORDER BY
 	Province

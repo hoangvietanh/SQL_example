@@ -1,0 +1,26 @@
+#FRMS đếm số hộ gia đình được giao đất
+
+SELECT
+count (DISTINCT actor_id) as sochurung,
+NAQN.actor_type_code AS actor,
+SUM (NAQN.area) AS Dtich,
+NAQN.province_code as tinh
+FROM
+(
+SELECT
+plot.actor_id,
+plot.actor_type_code,
+plot.area,
+commune.commune_code,
+district.district_code,
+province.province_code,
+province.NAME 
+FROM
+plot
+JOIN commune ON commune.commune_code = plot.commune_code
+JOIN district ON district.district_code = commune.district_code
+JOIN province ON province.province_code = district.province_code
+WHERE
+province.province_code IN (40,49)
+AND actor_type_code IN ( 1, 2 )) AS NAQN 
+GROUP BY actor_type_code, province_code
